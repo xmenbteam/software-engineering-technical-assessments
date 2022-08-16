@@ -16,41 +16,46 @@ function reset() {
 }
 
 function scoreboard() {
-  const storeResults = store.getAll();
+  try {
+    const storeResults = store.getAll();
 
-  // id, name, seqNo, partyResults
-  const result = storeResults.reduce(
-    (obj, { partyResults }) => {
-      obj.sum++;
-      let winner = "";
-      let winnerShare = 0;
+    return storeResults.reduce(
+      (resultObj, { partyResults }) => {
+        resultObj.sum++;
+        let winningParty = "";
+        let winnerShare = 0;
 
-      partyResults.forEach(({ party, share, votes }) => {
-        if (!obj.hasOwnProperty(party)) obj[party] = { seats: 0, voteShare: 0 };
+        partyResults.forEach(({ party, share, votes }) => {
+          if (!resultObj.seats.hasOwnProperty(party)) {
+            resultObj.seats[party] = 0;
+            resultObj.voteShare[party] = 0;
+          }
 
-        obj[party].voteShare += votes;
+          resultObj.voteShare[party] += votes;
 
-        if (share > winnerShare) {
-          winner = party;
-          winnerShare = share;
-        }
-      });
+          if (share > winnerShare) {
+            winningParty = party;
+            winnerShare = share;
+          }
+        });
 
-      obj[winner].seats++;
+        resultObj.seats[winningParty]++;
 
-      return obj;
-    },
-    {
-      winner: null,
-      sum: 0,
-    }
-  );
+        if (resultObj.seats[winningParty] >= 325)
+          resultObj.winner = winningParty;
 
-  for (let party in result) {
-    if (result[party]?.seats >= 325) result.winner = party;
+        return resultObj;
+      },
+      {
+        sum: 0,
+        winner: null,
+        seats: {},
+        voteShare: {},
+      }
+    );
+  } catch (err) {
+    console.log(err);
   }
-
-  return result;
 }
 
 module.exports = { getResult, newResult, reset, scoreboard };

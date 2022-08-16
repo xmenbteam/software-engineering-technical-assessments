@@ -37,8 +37,8 @@ describe("Scoreboard Tests", () => {
     expect(scoreboard).not.toBeNull();
     const response = scoreboard.body;
     expect(response.winner).toBe(null);
-    expect(response.LD.seats).toBe(1);
-    expect(response.LAB.seats).toBe(4);
+    expect(response.seats.LD).toBe(1);
+    expect(response.seats.LAB).toBe(4);
   });
 
   test("first 100", async () => {
@@ -50,16 +50,16 @@ describe("Scoreboard Tests", () => {
     // assert winner = noone
     expect(response.winner).toBe(null);
     // assert LD == 12
-    expect(response.LD.seats).toBe(12);
+    expect(response.seats.LD).toBe(12);
     // assert LAB == 56
-    expect(response.LAB.seats).toBe(56);
+    expect(response.seats.LAB).toBe(56);
     // assert CON == 31
-    expect(response.CON.seats).toBe(31);
+    expect(response.seats.CON).toBe(31);
     // assert SGP == 0
-    expect(response.SGP.seats).toBe(0);
+    expect(response.seats.SGP).toBe(0);
     // Bonus Task (total votes):
     // assert SGP == 1071
-    expect(response.SGP.voteShare).toBe(1071);
+    expect(response.voteShare.SGP).toBe(1071);
   });
 
   test("first 554", async () => {
@@ -68,18 +68,18 @@ describe("Scoreboard Tests", () => {
     expect(scoreboard).not.toBeNull();
     const response = scoreboard.body;
     // assert LD == 52
-    expect(response.LD.seats).toBe(52);
+    expect(response.seats.LD).toBe(52);
     // assert LAB = 325
-    expect(response.LAB.seats).toBe(325);
+    expect(response.seats.LAB).toBe(325);
     // assert CON = 167
-    expect(response.CON.seats).toBe(167);
+    expect(response.seats.CON).toBe(167);
     // assert IKHH = 1
-    expect(response.IKHH.seats).toBe(1);
+    expect(response.seats.IKHH).toBe(1);
     // assert winner = LAB
     expect(response.winner).toBe("LAB");
     // Bonus Task (total votes):
     // assert IKHH == 18739
-    expect(response.IKHH.voteShare).toBe(18739);
+    expect(response.voteShare.IKHH).toBe(18739);
   });
 
   test("test all results", async () => {
@@ -88,19 +88,19 @@ describe("Scoreboard Tests", () => {
     expect(scoreboard).not.toBeNull();
     const response = scoreboard.body;
     // assert LD == 62
-    expect(response.LD.seats).toBe(62);
+    expect(response.seats.LD).toBe(62);
     // assert LAB == 349
-    expect(response.LAB.seats).toBe(349);
+    expect(response.seats.LAB).toBe(349);
     // assert CON == 210
-    expect(response.CON.seats).toBe(210);
+    expect(response.seats.CON).toBe(210);
     // assert SDLP == 3
-    expect(response.SDLP.seats).toBe(3);
+    expect(response.seats.SDLP).toBe(3);
     // assert winner = LAB
     expect(response.winner).toBe("LAB");
     // assert sum = 650
     expect(response.sum).toBe(650);
     // Bonus Task (total votes):
     // assert SDLP == 125626
-    expect(response.SDLP.voteShare).toBe(125626);
+    expect(response.voteShare.SDLP).toBe(125626);
   });
 });
